@@ -1,4 +1,4 @@
-pragma solidity ^0.5.16;
+pragma solidity >=0.4.16 <0.9.0;
 
 contract Election{
     // Model a candidate
@@ -8,10 +8,28 @@ contract Election{
         uint voteCount;
     }
 
+    //Store accounts that have votes
+    mapping(address => bool) public votes;
     //Store Condidate
     mapping(uint => Candidate) public candidates;
+
+    uint public candidatesCount;
     //Constructor
-    function Elections () public {
-        candidate = "Candidate 1";
+     constructor () public{
+       addCandidate("Candidate 1");
+       addCandidate("Candidate 2");
+    }
+
+    //Add Candidate Function
+    function addCandidate(string memory _name) private {
+        candidatesCount++;
+        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
+    }
+
+    function vote(uint _candidatesId) public{
+        votes[msg.sender] = true;
+
+        candidates[_candidatesId].voteCount++;
+
     }
 }
