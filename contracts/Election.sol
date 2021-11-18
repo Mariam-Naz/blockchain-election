@@ -27,6 +27,10 @@ contract Election{
     }
 
     function vote(uint _candidatesId) public{
+        require(!votes[msg.sender]);
+
+        require(_candidatesId > 0 && _candidatesId <= candidatesCount);
+
         votes[msg.sender] = true;
 
         candidates[_candidatesId].voteCount++;
