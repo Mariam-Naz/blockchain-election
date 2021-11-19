@@ -98,8 +98,9 @@ App = {
           candidatesSelect.append(candidateOption);
         });
       }
-      return electionInstance.voters(App.account);
+      return electionInstance.votes(App.account);
     }).then(function(hasVoted) {
+   
       // Do not allow a user to vote
       if(hasVoted) {
         $('form').hide();
